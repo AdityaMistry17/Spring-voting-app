@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Page</title>
+</head>
+<body>
+    <h1>Admin Page - Vote Count</h1>
+    
+    <form action="update_votes.php" method="post">
+        <label for="candidate1">Candidate 1:</label>
+        <input type="number" id="candidate1" name="candidate1" min="0" value="0"><br>
+
+        <label for="candidate2">Candidate 2:</label>
+        <input type="number" id="candidate2" name="candidate2" min="0" value="0"><br>
+
+        <label for="candidate3">Candidate 3:</label>
+        <input type="number" id="candidate3" name="candidate3" min="0" value="0"><br>
+
+        <label for="candidate4">Candidate 4:</label>
+        <input type="number" id="candidate4" name="candidate4" min="0" value="0"><br>
+
+        <input type="submit" value="Update Votes">
+    </form>
+</body>
+</html>

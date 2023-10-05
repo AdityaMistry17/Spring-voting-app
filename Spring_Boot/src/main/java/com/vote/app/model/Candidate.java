@@ -13,7 +13,8 @@ public class Candidate {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	private String name;
+	private String username;
+	private String candidateName;
 	
 	
 	public Candidate() {
@@ -27,10 +28,10 @@ public class Candidate {
 
 
 
-	public Candidate(int id, String name) {
+	public Candidate( String username, String candidateName) {
 		super();
-		this.id = id;
-		this.name = name;
+		this.username = username;
+		this.candidateName = candidateName;
 	}
 
 	public int getId() {
@@ -42,12 +43,22 @@ public class Candidate {
 	}
 
 	public String getName() {
-		return name;
+		return username;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setName(String username) {
+		this.username = username;
 	}
+
+	public String getPassword() {
+		return candidateName;
+	}
+
+	public void setPassword(String candidateName) {
+		this.candidateName = candidateName;
+	}
+
+	
 	
 	
 }

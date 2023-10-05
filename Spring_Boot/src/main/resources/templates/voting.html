@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vote for Your Candidate</title>
+    <style>
+        /* Center-align container */
+        .container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh; /* Minimum 100% viewport height */
+            background-color: #f5f5f5; /* Background color for the entire page */
+        }
+
+        /* Style the tabs */
+        .tab {
+            display: none;
+        }
+
+        /* Style the label as a button */
+        .tab-label {
+            cursor: pointer;
+            padding: 10px 20px;
+            background-color: #f1f1f1;
+            border: 1px solid #ccc;
+            margin: 5px 0;
+            width: 100%; /* Make labels fill the container width */
+            text-align: center; /* Center-align text */
+        }
+
+        /* Style the checkboxes */
+        .tab-checkbox {
+            margin-right: 10px;
+        }
+
+        /* Style the vote button */
+        .vote-button {
+            margin-top: 10px;
+            margin-left: 40px;
+            padding: 11px 20px;
+            background-color: #007bff;
+            border: none;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .vote-button:hover {
+            background-color: #0056b3;
+        }
+        
+        .logout-button {
+            margin-top: 20px;
+            margin-left: 40px;
+            padding: 10px 20px;
+            background-color: #dc3545;
+            border: none;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .logout-button:hover {
+            background-color: #c82333;
+        }
+
+        .form-container {
+            text-align: center; 
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Vote for Your Candidate</h1>
+    
+    <form name="votingForm" action="/voting" method="post" class="form-container">
+		
+		 <div class="tab-label">
+        <input type="radio" class="tab-radio" name="candidate1" id="candidate1Radio">
+        <label for="candidate1Radio">Candidate 1</label>
+    </div>
+
+    <div class="tab-label">
+        <input type="radio" class="tab-radio" name="candidate2" id="candidate2Radio" >
+        <label for="candidate2Radio">Candidate 2</label>
+    </div>
+
+    <div class="tab-label">
+        <input type="radio" class="tab-radio" name="candidate3" id="candidate3Radio">
+        <label for="candidate3Radio">Candidate 3</label>
+    </div>
+
+    <div class="tab-label">
+        <input type="radio" class="tab-radio" name="candidate4" id="candidate4Radio" >
+        <label for="candidate4Radio">Candidate 4</label>
+    </div>
+
+    <div class="tab" id="candidate1">
+        <label>
+            <input type="radio" name="vote" value="candidate1" class="radio-button">
+            Candidate 1
+        </label>
+    </div>
+
+    <div class="tab" id="candidate2">
+        <label>
+            <input type="radio" name="vote"  value="candidate2" class="radio-button">
+            Candidate 2
+        </label>
+    </div>
+
+    <div class="tab" id="candidate3">
+        <label>
+            <input type="radio" name="vote"  value="candidate3" class="radio-button">
+            Candidate 3
+        </label>
+    </div>
+
+    <div class="tab" id="candidate4">
+        <label>
+            <input type="radio" name="vote"  value="candidate4" class="radio-button">
+            Candidate 4
+        </label>
+    </div>
+
+    <button class="vote-button" onclick="validateForm()">Vote</button>
+    <a href="/home" class="logout-button" onclick="logout()">Logout</a>
+</form>
+</div>
+
+<script>
+	function validateForm() {
+		// Add your form validation logic here if needed
+		return true; // Return true to allow the form submission
+	} document.addEventListener("DOMContentLoaded", function () {
+		const votingForm = document.forms.votingForm;
+
+		votingForm.addEventListener("submit", function (event) {
+			event.preventDefault(); // Prevent the default form submission
+
+			// Get form data as URL-encoded string
+			const formData = new URLSearchParams(new FormData(votingForm)).toString();
+			
+			 // Append the username to the formData
+        	formData.append("username", user.username); // Adjust the property name as needed
+			
+			JSON.stringify(formData);
+			// Make an AJAX POST request to your API
+			fetch('/voting', {
+				method: 'POST',
+				body: formData,
+				headers: {
+					'Content-Type': 'application/x-www-form-urlencoded'
+				}
+			})
+				.then(response => {
+					if (response.ok) {
+						// Check if the response contains a 'Location' header
+						const redirectUrl = response.headers.get('Location');
+						if (redirectUrl) {
+							// Perform manual redirection
+							window.location.href = redirectUrl;
+						} else {
+							// Handle success or other cases here
+							console.log('Login successful.');
+						}
+					} else {
+						// Handle server errors here (e.g., show an error message)
+						throw new Error('Server error');
+					}
+				})
+				.catch(error => {
+					console.error('Error:', error);
+					alert('Login failed. Please try again.');
+				});
+
+		});
+	});
+
+</script>
+		
+</body>
+</html>

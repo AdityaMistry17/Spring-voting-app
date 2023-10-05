@@ -9,7 +9,14 @@ package com.vote.app.service;
 //	User register(UserRegistration registration);
 //}
 
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.vote.app.model.User;
@@ -17,21 +24,13 @@ import com.vote.app.repository.UserRepo;
 
 @Service
 public class UserService {
-    private final UserRepo userRepository;
-    private final BCryptPasswordEncoder passwordEncoder;
+    @Autowired
+    private UserRepo userRepository;
 
-    public UserService(UserRepo userRepository, BCryptPasswordEncoder passwordEncoder) {
-        this.userRepository = userRepository;
-        this.passwordEncoder = passwordEncoder;
-    }
-
-    public User registerUser(User user) {
-        // Encrypt the password before saving
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        return userRepository.save(user);
-    }
-
-    public User findUserByUsername(String username) {
+    public User findByUsername(String username) {
         return userRepository.findByUsername(username);
     }
+
+    // You can add more methods for user management (e.g., user registration)
 }
+

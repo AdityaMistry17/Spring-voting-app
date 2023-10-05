@@ -8,6 +8,7 @@ import com.vote.app.model.User;
 
 
 @Repository
-public interface UserRepo extends JpaRepository<User, Integer>{
-	User findByUsername(String username);
+public interface UserRepo extends JpaRepository<User, Integer> {
+    User findByUsername(String username);
 }
+
